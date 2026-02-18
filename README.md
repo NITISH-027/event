@@ -17,6 +17,14 @@ Then open **http://localhost:3000** in your browser!
 
 > **Note:** You can view the site and UI without any additional setup. Full functionality (login, creating events, etc.) requires Supabase configuration - see [Getting Started](#getting-started) below.
 
+## 🌐 Deploy to Vercel
+
+**Ready to deploy your app?** 
+
+👉 **[Follow the Vercel Deployment Guide](VERCEL_DEPLOYMENT.md)** - Complete step-by-step instructions to deploy in 5 minutes!
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/NITISH-027/event&env=NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY,NEXT_PUBLIC_APP_NAME&envDescription=Supabase%20credentials%20required%20for%20authentication%20and%20database&envLink=https://github.com/NITISH-027/event/blob/main/VERCEL_DEPLOYMENT.md)
+
 ---
 
 ## Abstract

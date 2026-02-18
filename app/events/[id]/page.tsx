@@ -5,7 +5,10 @@ import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { getCurrentUser } from '@/utils/auth'
-import type { Event, Comment, Profile } from '@/types/database'
+import type { Event, Comment, Profile, Database } from '@/types/database'
+import type { User } from '@supabase/supabase-js'
+
+type CommentInsert = Database['public']['Tables']['comments']['Insert']
 
 export default function EventDetailPage() {
   const router = useRouter()
@@ -15,7 +18,7 @@ export default function EventDetailPage() {
   const [event, setEvent] = useState<Event | null>(null)
   const [comments, setComments] = useState<(Comment & { profile: Profile })[]>([])
   const [creator, setCreator] = useState<Profile | null>(null)
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const [commentText, setCommentText] = useState('')
   const [submittingComment, setSubmittingComment] = useState(false)
@@ -72,13 +75,15 @@ export default function EventDetailPage() {
 
     setSubmittingComment(true)
     try {
+      const commentData: CommentInsert = {
+        event_id: eventId,
+        user_id: user.id,
+        content: commentText,
+      }
+
       const { error } = await supabase
         .from('comments')
-        .insert([{
-          event_id: eventId,
-          user_id: user.id,
-          content: commentText,
-        }] as any)
+        .insert([commentData] as any)
 
       if (error) throw error
 

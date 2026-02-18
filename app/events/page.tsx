@@ -1,17 +1,18 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { getCurrentUser, signOut } from '@/utils/auth'
 import type { Event } from '@/types/database'
+import type { User } from '@supabase/supabase-js'
 
 export default function EventsPage() {
   const router = useRouter()
   const [events, setEvents] = useState<Event[]>([])
   const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<User | null>(null)
   const [filter, setFilter] = useState({
     category: '',
     institution: '',
@@ -20,7 +21,6 @@ export default function EventsPage() {
 
   useEffect(() => {
     checkUser()
-    loadEvents()
   }, [])
 
   const checkUser = async () => {
@@ -28,7 +28,7 @@ export default function EventsPage() {
     setUser(currentUser)
   }
 
-  const loadEvents = async () => {
+  const loadEvents = useCallback(async () => {
     try {
       let query = supabase
         .from('events')
@@ -56,11 +56,11 @@ export default function EventsPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [filter])
 
   useEffect(() => {
     loadEvents()
-  }, [filter])
+  }, [loadEvents])
 
   const handleSignOut = async () => {
     await signOut()

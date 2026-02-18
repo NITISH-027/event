@@ -6,10 +6,11 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { getCurrentUser, signOut } from '@/utils/auth'
 import type { Profile, Event } from '@/types/database'
+import type { User } from '@supabase/supabase-js'
 
 export default function ProfilePage() {
   const router = useRouter()
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [myEvents, setMyEvents] = useState<Event[]>([])
   const [loading, setLoading] = useState(true)

@@ -6,6 +6,9 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { getCurrentUser } from '@/utils/auth'
 import { uploadEventImage } from '@/utils/storage'
+import type { Database } from '@/types/database'
+
+type EventInsert = Database['public']['Tables']['events']['Insert']
 
 export default function CreateEventPage() {
   const router = useRouter()
@@ -39,19 +42,22 @@ export default function CreateEventPage() {
         imageUrl = await uploadEventImage(imageFile, user.id)
       }
 
+      const eventData: EventInsert = {
+        ...formData,
+        image_url: imageUrl,
+        created_by: user.id,
+      }
+
       const { data, error: insertError } = await supabase
         .from('events')
-        .insert([{
-          ...formData,
-          image_url: imageUrl,
-          created_by: user.id,
-        }] as any)
+        .insert([eventData] as any)
         .select()
         .single()
 
       if (insertError) throw insertError
-
-      router.push(`/events/${(data as any).id}`)
+      if (data) {
+        router.push(`/events/${(data as any).id}`)
+      }
     } catch (err: any) {
       setError(err.message || 'Failed to create event')
     } finally {

@@ -125,6 +125,12 @@ The platform is designed as a Progressive Web Application (PWA) and can be:
 - Packaged as an Android APK for demonstration purposes
 - Accessed via web browser on any device
 
+**Note:** For PWA functionality, you may want to add custom icon files:
+- `/public/icon-192.png` (192x192px)
+- `/public/icon-512.png` (512x512px)
+
+These icons are referenced in `/public/manifest.json` for the installable app experience.
+
 ## Event Lifecycle Workflow
 
 1. User authentication

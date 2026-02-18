@@ -2,6 +2,23 @@
 
 A secure, mobile-centric event management platform designed to centralize event discovery and enable structured publishing, browsing, and engagement across educational institutions.
 
+## 🚀 Quick Start - View the Site Now!
+
+**Want to see the site immediately?** Just run these commands:
+
+```bash
+npm install      # Install dependencies (1-2 minutes)
+npm run dev      # Start the development server
+```
+
+Then open **http://localhost:3000** in your browser! 
+
+👉 **For detailed instructions, see [HOW_TO_VIEW.md](HOW_TO_VIEW.md)**
+
+> **Note:** You can view the site and UI without any additional setup. Full functionality (login, creating events, etc.) requires Supabase configuration - see [Getting Started](#getting-started) below.
+
+---
+
 ## Abstract
 
 Communication of campus events in educational institutions remains largely fragmented and inefficient due to reliance on notice boards, messaging groups, and unstructured social media dissemination. College Event Bridge addresses these challenges by providing:
